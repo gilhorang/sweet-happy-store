@@ -48,6 +48,7 @@ body.touch #map{width:126px;height:116px;border-radius:16px}
 #enter:disabled{filter:grayscale(.5);opacity:.6;cursor:wait}
 .how{display:flex;justify-content:center;gap:16px;margin-top:14px;font-size:12.5px;color:var(--soft)}
 .only-touch{display:none}body.touch .only-touch{display:inline}body.touch .only-pc{display:none}
+#bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden}.bubble{position:absolute;left:0;top:0;max-width:220px;background:#fffdfb;border:2px solid #f3c6d8;border-radius:16px;padding:7px 12px;font-size:13px;font-weight:700;color:#5d4a73;box-shadow:0 6px 16px #6a53a030;opacity:0;transition:opacity .25s;white-space:normal;text-align:center}.bubble::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-7px;border:7px solid transparent;border-top-color:#f3c6d8;border-bottom:0}.bubble.on{opacity:1}
 #err{position:fixed;inset:auto 16px 16px;z-index:9;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 20px #0002}
 </style>
 </head>
@@ -66,8 +67,9 @@ body.touch #map{width:126px;height:116px;border-radius:16px}
   </div>
 </div>
 <canvas id="map" width="360" height="332" aria-label="현재 위치 지도"></canvas>
-<p id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점</p>
+<p id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점 · 의자 클릭 앉기</p>
 <div id="joy" aria-label="걷기 조이스틱"><div id="knob"></div></div>
+<div id="bubbles"></div>
 <div id="toast" role="status"></div>
 <div id="err" hidden></div>
 
@@ -80,7 +82,7 @@ body.touch #map{width:126px;height:116px;border-radius:16px}
     <div id="pct">매장 불러오는 중…</div>
     <button id="enter" disabled>불러오는 중…</button>
     <div class="how">
-      <span class="only-pc">⌨️ WASD 걷기</span><span class="only-pc">🖱️ 드래그로 보기</span>
+      <span class="only-pc">⌨️ WASD 걷기</span><span class="only-pc">🖱️ 드래그로 보기</span><span>🪑 의자를 누르면 앉아요</span>
       <span class="only-touch">🕹️ 왼쪽 원으로 걷기</span><span class="only-touch">👆 화면 드래그로 보기</span>
     </div>
   </div>
