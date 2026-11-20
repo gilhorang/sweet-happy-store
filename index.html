@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#ece4f6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
 <title>수집수집 × 수잇해피 · 매장 둘러보기</title>
 <style>
 :root{--ink:#4a3f66;--soft:#7a6c99;--mint:#b8e3cd;--pink:#f6b7d2;--sky:#a9d4f5;--lav:#cdbcf0;--card:#fffafcee;
@@ -51,21 +53,25 @@ body.touch #map{width:126px;height:116px;border-radius:16px}
 #bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden}.bubble{position:absolute;left:0;top:0;max-width:220px;background:#fffdfb;border:2px solid #f3c6d8;border-radius:16px;padding:7px 12px;font-size:13px;font-weight:700;color:#5d4a73;box-shadow:0 6px 16px #6a53a030;opacity:0;transition:opacity .25s;white-space:normal;text-align:center}.bubble::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-7px;border:7px solid transparent;border-top-color:#f3c6d8;border-bottom:0}.bubble.on{opacity:1}
 /* ---------- cafe order ---------- */
 [hidden]{display:none!important}
-.cta{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(62px + var(--sb));z-index:3;border:3px solid #fff;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,#f7a9cb,#c6b2f2);box-shadow:0 10px 24px #c77fb055;text-shadow:0 1px 2px #8a4d7a55;white-space:nowrap;animation:bob 1.6s ease-in-out infinite}
+#actions{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(62px + var(--sb));z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:max-content;max-width:94vw;pointer-events:none}
+#actions>*{pointer-events:auto}
+.cta{position:relative;border:3px solid #fff;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:800;color:#fff;background:linear-gradient(135deg,#f7a9cb,#c6b2f2);box-shadow:0 10px 24px #c77fb055;text-shadow:0 1px 2px #8a4d7a55;white-space:nowrap;animation:bob 1.6s ease-in-out infinite}
 #eat-btn{background:linear-gradient(135deg,#ffc58a,#f7a9cb)}
-@keyframes bob{50%{transform:translate(-50%,-4px)}}
-.cta:active{transform:translateX(-50%) scale(.95)}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.cta:active{transform:scale(.95)}
+.cta.sub{animation:none;padding:9px 14px;font-size:13.5px;background:#fffafcf2;color:var(--ink);text-shadow:none}
+#shop-btn{background:linear-gradient(135deg,#ffb3cf,#f48fb9)}#diary-btn{background:linear-gradient(135deg,#ffd27a,#f7a9cb)}#photo-btn{background:linear-gradient(135deg,#a9d4f5,#cdbcf0)}#basket-btn{background:linear-gradient(135deg,#f4a7bf,#e886ab)}
 #order-chip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(124px + var(--sb));z-index:3;background:#fffafcf5;border:2px solid #fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;box-shadow:0 6px 16px #6a53a026;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
-body.touch .cta{bottom:calc(168px + var(--sb))}body.touch #order-chip{bottom:calc(228px + var(--sb))}
-#menu{position:fixed;z-index:6;left:50%;top:50%;width:min(460px,calc(100% - 24px));max-height:min(720px,calc(100% - 40px));display:flex;flex-direction:column;transform:translate(-50%,-46%);opacity:0;transition:.25s;border:4px solid #fff;border-radius:26px;overflow:hidden;box-shadow:0 24px 60px #6a53a045;
+body.touch #actions{bottom:calc(168px + var(--sb))}body.touch #order-chip{bottom:calc(228px + var(--sb))}
+.sheet{position:fixed;z-index:6;left:50%;top:50%;width:min(460px,calc(100% - 24px));max-height:min(720px,calc(100% - 40px));display:flex;flex-direction:column;transform:translate(-50%,-46%);opacity:0;transition:.25s;border:4px solid #fff;border-radius:26px;overflow:hidden;box-shadow:0 24px 60px #6a53a045;
   background:radial-gradient(circle at 12px 12px,#f8c9db 0 9px,#0000 10px) 0 0/44px 44px,radial-gradient(circle at 34px 34px,#f8c9db 0 9px,#0000 10px) 0 0/44px 44px,#d6efbf}
-#menu.on{opacity:1;transform:translate(-50%,-50%)}
-@media (max-width:560px){#menu{top:auto;bottom:0;width:100%;max-height:82%;border-radius:26px 26px 0 0;border-bottom:0;transform:translate(-50%,30px);padding-bottom:var(--sb)}#menu.on{transform:translate(-50%,0)}}
+.sheet.on{opacity:1;transform:translate(-50%,-50%)}
+@media (max-width:560px){.sheet{top:auto;bottom:0;width:100%;max-height:82%;border-radius:26px 26px 0 0;border-bottom:0;transform:translate(-50%,30px);padding-bottom:var(--sb)}.sheet.on{transform:translate(-50%,0)}}
 .mhead{display:flex;align-items:center;gap:10px;padding:14px 14px 8px 18px}
 .mhead>div{flex:1;min-width:0}.mhead b{display:block;font-size:20px;font-weight:900;letter-spacing:.02em;color:#fff;-webkit-text-stroke:1.2px #4a3f66;paint-order:stroke fill;text-shadow:2px 2px 0 #4a3f66}
 .mhead span{display:block;font-size:12.5px;font-weight:700;color:#5d4f7c;margin-top:2px}
 .x{width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:#fffafcee;font-size:15px;font-weight:800;flex:none}
-.cats{display:flex;gap:6px;padding:4px 14px 10px;overflow-x:auto;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.cats{flex:none;display:flex;gap:6px;padding:4px 14px 10px;overflow-x:auto;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
 .cats button{flex:none;border:2px solid #fff;border-radius:999px;padding:6px 13px;font-size:13.5px;font-weight:800;background:#fffafcd9}
 .cats button.on{background:#f48fb9;color:#fff}
 .note{margin:-4px 16px 8px;font-size:11.5px;font-weight:700;color:#5d4f7c}
@@ -90,6 +96,41 @@ body.touch .cta{bottom:calc(168px + var(--sb))}body.touch #order-chip{bottom:cal
 .done .list{display:flex;flex-direction:column;gap:3px;font-size:14px;font-weight:700;background:#fff;border-radius:14px;padding:10px 12px}
 .done p{margin:4px 0 0;font-weight:800;text-align:center}
 .go.game{background:linear-gradient(135deg,#a9d4f5,#cdbcf0)}.go small{font-size:11.5px;opacity:.9}
+/* ---------- shop ---------- */
+.emo img{width:40px;height:40px}
+.mini{display:flex;gap:2px;margin-top:4px}.mini img{width:26px;height:26px}
+.cats.sub{padding-top:0}.cats.sub button{font-size:12.5px;padding:4px 11px;background:#fff}
+.cats.sub button.on{background:#7cc4a0;color:#fff}
+/* ---------- diary ---------- */
+#diary{position:fixed;inset:0;z-index:8;display:flex;flex-direction:column;background:radial-gradient(120% 80% at 20% 0,#ffe3f0,#0000 60%),linear-gradient(160deg,#efe6ff,#e2f0fd);padding:calc(10px + var(--st)) calc(10px + var(--sr)) calc(10px + var(--sb)) calc(10px + var(--sl))}
+.dtop{display:flex;align-items:center;gap:6px}.dtop b{flex:1;font-size:17px}.dtop .pg{font-size:13px;font-weight:700;color:var(--soft)}
+.dtop button{border:2px solid #fff;background:#fffafcee;border-radius:999px;padding:6px 11px;font-weight:800;font-size:13px}
+.dwrap{flex:1;min-height:0;display:grid;place-items:center;padding:8px 0}
+.dpage{position:relative;height:100%;max-height:100%;aspect-ratio:3/4;max-width:100%;border-radius:10px 18px 18px 10px;overflow:hidden;touch-action:none;box-shadow:0 14px 34px #6a53a035;
+  background:radial-gradient(circle,#e9dcef 1.2px,#0000 1.6px) 0 0/4% 3%,linear-gradient(90deg,#f6e3ec 0 6%,#0000 6%),#fffdf6}
+.dpage::before{content:"";position:absolute;left:1.2%;top:0;bottom:0;width:3.5%;background:radial-gradient(circle,#d8cde6 45%,#0000 50%) 0 0/100% 5%}
+.de{position:absolute;user-select:none;-webkit-user-select:none;cursor:grab;touch-action:none}
+.dt{width:max-content;white-space:normal;word-break:keep-all;text-align:center;font-family:"Gamja Flower","Poor Story",cursive;line-height:1.05}
+.de.on{outline:2px dashed #f48fb9;outline-offset:3px;border-radius:6px}
+.dsel{display:flex;justify-content:center;gap:6px;padding:4px 0}.dsel button{border:2px solid #fff;background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;box-shadow:0 3px 8px #6a53a01c}
+.dinput{display:flex;gap:6px;padding:4px 0}.dinput input{flex:1;min-width:0;border:2px solid #f3c6d8;border-radius:14px;padding:9px 12px;font:20px "Gamja Flower",cursive}.dinput button{border:0;border-radius:14px;padding:0 14px;font-weight:800;background:#f48fb9;color:#fff}
+.dtray{background:#fffafcf2;border:2px solid #fff;border-radius:18px;padding:8px}
+.dtabs{display:flex;gap:6px;margin-bottom:6px}.dtabs button{border:2px solid #f3d5e2;background:#fff;border-radius:999px;padding:5px 12px;font-weight:800;font-size:13px}.dtabs button.on{background:#f48fb9;border-color:#f48fb9;color:#fff}
+.dlist{display:flex;gap:8px;overflow-x:auto;align-items:center;min-height:64px;scrollbar-width:none}.dlist p{margin:0;font-size:13px;color:var(--soft)}.dlist p.tip{flex:none}
+.dst{position:relative;flex:none;border:0;background:#fff2f7;border-radius:14px;padding:4px}.dst img{width:54px;height:54px;display:block}.dst i{position:absolute;right:2px;bottom:2px;font-style:normal;font-size:11px;font-weight:800;background:#f48fb9;color:#fff;border-radius:99px;padding:0 6px}
+.dpen{flex:none;display:flex;align-items:center;gap:6px;border:2px solid #f3d5e2;background:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px}.dpen span{width:14px;height:14px;border-radius:50%}.dpen.on{border-color:#f48fb9;background:#ffe1ee}
+.dtape{flex:none;border:0;background:#fff;border-radius:10px;padding:6px}.dtape img{width:120px;display:block}
+/* ---------- mirror photo ---------- */
+#photo-bar{position:fixed;left:0;right:0;bottom:calc(16px + var(--sb));z-index:5;display:flex;flex-direction:column;align-items:center;gap:12px}
+.poses{display:flex;gap:6px}.poses button{border:2px solid #fff;background:#fffafcee;border-radius:999px;padding:8px 13px;font-weight:800;font-size:14px;box-shadow:0 4px 12px #6a53a022}.poses button.on{background:#f48fb9;color:#fff}
+.prow{display:flex;align-items:center;gap:22px}.shutter{width:70px;height:70px;border-radius:50%;border:5px solid #fff;background:#ff8fb7;box-shadow:0 0 0 3px #ff8fb7,0 8px 20px #6a53a040}
+.pclose{border:2px solid #fff;background:#fffafcee;border-radius:999px;padding:8px 16px;font-weight:800}.ptip{font-size:12.5px;font-weight:700;color:#fff;text-shadow:0 1px 3px #4a3f66}
+body.touch #photo-bar{bottom:calc(150px + var(--sb))}
+body.photo #hint,body.photo #toast{display:none}
+#flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+#shot{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:#4a3f6688;padding:20px}
+.shotcard{background:#fff;border-radius:22px;padding:12px;max-width:min(420px,100%);box-shadow:0 20px 50px #0004}.shotcard img{display:block;width:100%;max-height:70vh;object-fit:contain;border-radius:12px}
+.srow{display:flex;gap:8px;margin-top:10px}.srow button{flex:1;white-space:nowrap;font-size:15px;border:2px solid #f3d5e2;background:#fff;border-radius:16px;padding:12px;font-weight:800}.srow .go{border:0;background:linear-gradient(135deg,#f7a9cb,#c6b2f2);color:#fff}
 #err{position:fixed;inset:auto 16px 16px;z-index:9;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 20px #0002}
 </style>
 </head>
@@ -103,18 +144,28 @@ body.touch .cta{bottom:calc(168px + var(--sb))}body.touch #order-chip{bottom:cal
     <button data-spot="display">🧸 진열대</button>
     <button data-spot="cafe">☕ 카페</button>
     <button id="view-toggle">👀 1인칭</button>
-    <button id="map-toggle" aria-pressed="true">🗺️ 지도</button>
     <button id="quality-toggle">✨ 고화질</button>
   </div>
 </div>
-<canvas id="map" width="360" height="332" aria-label="현재 위치 지도"></canvas>
 <p id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점 · 의자 클릭 앉기</p>
 <div id="joy" aria-label="걷기 조이스틱"><div id="knob"></div></div>
 <div id="bubbles"></div>
-<button id="order-btn" class="cta" hidden>☕ 메뉴 보고 주문하기</button>
-<button id="eat-btn" class="cta" hidden>😋 한 입 먹기</button>
+<div id="actions">
+  <button id="order-btn" class="cta" hidden>☕ 메뉴 보고 주문하기</button>
+  <button id="eat-btn" class="cta" hidden>😋 한 입 먹기</button>
+  <button id="diary-btn" class="cta" hidden>📒 다꾸하기</button>
+  <button id="shop-btn" class="cta" hidden>🛍️ 쇼핑하기</button>
+  <button id="basket-btn" class="cta" hidden>🧺 장바구니 0</button>
+  <button id="stop-btn" class="cta sub" hidden>쇼핑 그만두기</button>
+  <button id="photo-btn" class="cta" hidden>📸 거울샷 찍기</button>
+</div>
 <div id="order-chip" role="status" hidden></div>
-<div id="menu" role="dialog" aria-label="카페 메뉴" hidden></div>
+<div id="menu" class="sheet" role="dialog" aria-label="카페 메뉴" hidden></div>
+<div id="shop" class="sheet" role="dialog" aria-label="소품샵" hidden></div>
+<div id="diary" role="dialog" aria-label="다이어리" hidden></div>
+<div id="photo-bar" hidden></div>
+<div id="flash"></div>
+<div id="shot" hidden></div>
 <div id="toast" role="status"></div>
 <div id="err" hidden></div>
 
