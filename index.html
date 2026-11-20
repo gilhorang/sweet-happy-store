@@ -127,6 +127,25 @@ body.touch #actions{bottom:calc(168px + var(--sb))}body.touch #order-chip{bottom
 .pclose{border:2px solid #fff;background:#fffafcee;border-radius:999px;padding:8px 16px;font-weight:800}.ptip{font-size:12.5px;font-weight:700;color:#fff;text-shadow:0 1px 3px #4a3f66}
 body.touch #photo-bar{bottom:calc(150px + var(--sb))}
 body.photo #hint,body.photo #toast{display:none}
+/* ---------- hamburger ---------- */
+.hrow{display:flex;align-items:center;gap:8px;pointer-events:none}
+#burger{pointer-events:auto;width:46px;height:46px;flex:none;border-radius:50%;border:2px solid #fff;background:var(--card);box-shadow:0 6px 18px #6a53a022;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+#burger i{display:block;width:18px;height:2.6px;border-radius:2px;background:var(--ink);transition:.2s}
+#burger[aria-expanded=true] i:nth-child(1){transform:translateY(6.6px) rotate(45deg)}#burger[aria-expanded=true] i:nth-child(2){opacity:0}#burger[aria-expanded=true] i:nth-child(3){transform:translateY(-6.6px) rotate(-45deg)}
+.spots{flex-direction:column;align-items:stretch;align-self:flex-start;background:var(--card);border:2px solid #fff;border-radius:20px;padding:8px;box-shadow:0 10px 24px #6a53a026;min-width:150px}
+.spots:not([hidden]){display:flex}
+.spots button{text-align:left}
+/* ---------- diary photo crop ---------- */
+.dph{filter:drop-shadow(0 3px 6px #6a53a040)}
+.dcrop{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:#4a3f6688;padding:16px}
+.dcard{background:#fffdfb;border-radius:22px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:100%;box-shadow:0 20px 50px #0004}
+.dcard b{font-size:17px}.dcard small{font-size:12px;color:var(--soft);text-align:center}
+.dshape{display:flex;gap:5px}.dshape button{border:2px solid #f3d5e2;background:#fff;border-radius:999px;padding:5px 10px;font-weight:800;font-size:12.5px}.dshape button.on{background:#f48fb9;border-color:#f48fb9;color:#fff}
+.dview{position:relative;overflow:hidden;border-radius:6px;background:#eee;touch-action:none;cursor:grab;outline:3px solid #fff;box-shadow:0 0 0 1px #f3c6d8}
+.dview.circle{border-radius:50%}
+.dview img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none;-webkit-user-select:none;pointer-events:none}
+.dzoom{width:min(280px,80vw);accent-color:#f48fb9}
+.dcard .srow{width:100%}
 #flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
 #shot{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:#4a3f6688;padding:20px}
 .shotcard{background:#fff;border-radius:22px;padding:12px;max-width:min(420px,100%);box-shadow:0 20px 50px #0004}.shotcard img{display:block;width:100%;max-height:70vh;object-fit:contain;border-radius:12px}
@@ -138,16 +157,18 @@ body.photo #hint,body.photo #toast{display:none}
 <canvas id="room" tabindex="0" aria-label="수집수집 × 수잇해피 3D 매장"></canvas>
 
 <div class="hud">
-  <div class="pill"><span class="logo" aria-hidden="true"></span><div><b>수집수집 × 수잇해피</b><div id="where">🚪 입구</div></div></div>
-  <div class="spots">
+  <div class="hrow"><div class="pill"><span class="logo" aria-hidden="true"></span><div><b>수집수집 × 수잇해피</b><div id="where">🚪 입구</div></div></div>
+    <button id="burger" aria-label="메뉴 열기" aria-expanded="false"><i></i><i></i><i></i></button></div>
+  <div class="spots" id="spots" hidden>
     <button data-spot="entry">🚪 입구</button>
     <button data-spot="display">🧸 진열대</button>
     <button data-spot="cafe">☕ 카페</button>
     <button id="view-toggle">👀 1인칭</button>
     <button id="quality-toggle">✨ 고화질</button>
+    <button id="hint-toggle" class="only-pc">⌨️ 조작법</button>
   </div>
 </div>
-<p id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점 · 의자 클릭 앉기</p>
+<p id="hint" hidden><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점 · 의자 클릭 앉기</p>
 <div id="joy" aria-label="걷기 조이스틱"><div id="knob"></div></div>
 <div id="bubbles"></div>
 <div id="actions">
