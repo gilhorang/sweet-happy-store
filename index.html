@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#ece4f6">
+<title>수집수집 × 수잇해피 · 매장 둘러보기</title>
+<style>
+:root{--ink:#4a3f66;--soft:#7a6c99;--mint:#b8e3cd;--pink:#f6b7d2;--sky:#a9d4f5;--lav:#cdbcf0;--card:#fffafcee;
+  --sl:env(safe-area-inset-left,0px);--sr:env(safe-area-inset-right,0px);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);
+  color:var(--ink);font:15px/1.45 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#e9e2fb;overscroll-behavior:none}
+#room{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:none}
+#room.dragging{cursor:grabbing}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-select:none}
+.hud{position:fixed;left:calc(14px + var(--sl));top:calc(14px + var(--st));display:flex;flex-direction:column;gap:8px;max-width:calc(100% - 28px - var(--sl) - var(--sr));pointer-events:none}
+.pill{pointer-events:auto;align-self:flex-start;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;background:var(--card);border:2px solid #fff;border-radius:999px;box-shadow:0 6px 18px #6a53a022}
+.logo{width:30px;height:30px;border-radius:50%;background:conic-gradient(var(--pink) 0 25%,var(--mint) 0 50%,var(--sky) 0 75%,var(--lav) 0);border:3px solid #fff;box-shadow:0 2px 6px #6a53a033;flex:none}
+.pill b{font-size:15px;letter-spacing:-.02em;white-space:nowrap}
+#where{font-size:12.5px;color:var(--soft);white-space:nowrap}
+.spots{pointer-events:auto;display:flex;flex-wrap:wrap;gap:6px}
+.spots button{border:2px solid #fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;box-shadow:0 4px 12px #6a53a01c}
+.spots [data-spot=entry]{background:#ffe1ee}.spots [data-spot=display]{background:#dcefff}.spots [data-spot=cafe]{background:#dff5e9}
+#map-toggle{background:#efe6ff}#view-toggle{background:#fff1d9}#quality-toggle{background:#e3f3ff}
+.spots button:active{transform:scale(.95)}
+#map{position:fixed;right:calc(14px + var(--sr));bottom:calc(14px + var(--sb));width:180px;height:166px;border-radius:20px;border:3px solid #fff;background:#fffafcea;box-shadow:0 8px 22px #6a53a026;pointer-events:none}
+#hint{position:fixed;left:calc(14px + var(--sl));bottom:calc(14px + var(--sb));margin:0;background:var(--card);border:2px solid #fff;padding:7px 12px;border-radius:12px;font-size:12.5px;color:var(--soft);box-shadow:0 4px 12px #6a53a01c}
+kbd{display:inline-block;min-width:1.5em;padding:0 4px;border-radius:5px;background:#f1eafd;border:1px solid #dcd0f1;font:600 11.5px system-ui;text-align:center;color:var(--ink)}
+#joy{display:none;position:fixed;left:calc(18px + var(--sl));bottom:calc(22px + var(--sb));width:132px;height:132px;border-radius:50%;background:radial-gradient(circle,#ffffffb8 0 38%,#fff3f9a0 39% 100%);border:3px solid #ffffffd0;box-shadow:0 8px 22px #6a53a030;touch-action:none}
+#knob{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:linear-gradient(145deg,var(--pink),var(--lav));border:3px solid #fff;box-shadow:0 4px 10px #6a53a040;pointer-events:none;transition:transform .08s}
+#joy::after{content:"걷기";position:absolute;left:0;right:0;bottom:-20px;text-align:center;font-size:11px;font-weight:700;color:var(--soft)}
+body.touch #joy{display:block}body.touch #hint{display:none}
+body.touch #map{width:126px;height:116px;border-radius:16px}
+#toast{position:fixed;left:50%;top:calc(18px + var(--st));transform:translate(-50%,-14px);opacity:0;transition:.35s;background:#fffafcf5;border:2px solid #fff;border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:700;box-shadow:0 8px 20px #6a53a02a;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){#toast{top:auto;bottom:calc(180px + var(--sb))}}
+#overlay{position:fixed;inset:0;display:grid;place-items:center;padding:24px;background:radial-gradient(120% 90% at 20% 10%,#ffe3f0 0,#0000 55%),radial-gradient(110% 90% at 90% 90%,#d8f3e6 0,#0000 55%),linear-gradient(160deg,#efe6ff,#e2f0fd);transition:opacity .45s;z-index:5}
+#overlay.gone{opacity:0;pointer-events:none}
+.card{width:min(420px,100%);background:#fffafcf2;border:3px solid #fff;border-radius:28px;padding:26px 24px 22px;text-align:center;box-shadow:0 18px 50px #6a53a030}
+.card .logo{width:62px;height:62px;margin:0 auto 12px;border-width:5px}
+.card h1{margin:0;font-size:24px;letter-spacing:-.04em}
+.card p{margin:6px 0 0;color:var(--soft);font-size:14px}
+.track{height:10px;border-radius:99px;background:#efe7fb;margin:20px 0 6px;overflow:hidden;border:1px solid #e4d9f6}
+#bar{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--pink),var(--lav),var(--sky));transition:width .2s}
+#pct{font-size:12px;color:var(--soft)}
+#enter{margin-top:16px;width:100%;border:0;border-radius:18px;padding:14px;font-size:17px;font-weight:800;background:linear-gradient(135deg,#f7a9cb,#c6b2f2);color:#fff;box-shadow:0 8px 18px #c77fb04d;text-shadow:0 1px 2px #8a4d7a55}
+#enter:disabled{filter:grayscale(.5);opacity:.6;cursor:wait}
+.how{display:flex;justify-content:center;gap:16px;margin-top:14px;font-size:12.5px;color:var(--soft)}
+.only-touch{display:none}body.touch .only-touch{display:inline}body.touch .only-pc{display:none}
+#err{position:fixed;inset:auto 16px 16px;z-index:9;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 8px 20px #0002}
+</style>
+</head>
+<body>
+<canvas id="room" tabindex="0" aria-label="수집수집 × 수잇해피 3D 매장"></canvas>
+
+<div class="hud">
+  <div class="pill"><span class="logo" aria-hidden="true"></span><div><b>수집수집 × 수잇해피</b><div id="where">🚪 입구</div></div></div>
+  <div class="spots">
+    <button data-spot="entry">🚪 입구</button>
+    <button data-spot="display">🧸 진열대</button>
+    <button data-spot="cafe">☕ 카페</button>
+    <button id="view-toggle">👀 1인칭</button>
+    <button id="map-toggle" aria-pressed="true">🗺️ 지도</button>
+    <button id="quality-toggle">✨ 고화질</button>
+  </div>
+</div>
+<canvas id="map" width="360" height="332" aria-label="현재 위치 지도"></canvas>
+<p id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 걷기 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빨리 · <kbd>Q</kbd><kbd>E</kbd> 회전 · <kbd>V</kbd> 시점</p>
+<div id="joy" aria-label="걷기 조이스틱"><div id="knob"></div></div>
+<div id="toast" role="status"></div>
+<div id="err" hidden></div>
+
+<div id="overlay">
+  <div class="card">
+    <div class="logo" aria-hidden="true"></div>
+    <h1>수집수집 × 수잇해피</h1>
+    <p>유리문 안쪽에서 시작해 진열대 사이를 지나<br>카페 좌석까지 천천히 걸어 보세요.<br>딸기우유 머리 손님이 함께 걸어요 🍓</p>
+    <div class="track"><div id="bar"></div></div>
+    <div id="pct">매장 불러오는 중…</div>
+    <button id="enter" disabled>불러오는 중…</button>
+    <div class="how">
+      <span class="only-pc">⌨️ WASD 걷기</span><span class="only-pc">🖱️ 드래그로 보기</span>
+      <span class="only-touch">🕹️ 왼쪽 원으로 걷기</span><span class="only-touch">👆 화면 드래그로 보기</span>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
