@@ -175,6 +175,28 @@ body.touch #joy{bottom:calc(106px + var(--sb));width:118px;height:118px}
 body.touch #actions{left:auto;right:calc(12px + var(--sr));transform:none;bottom:calc(94px + var(--sb));justify-content:flex-end;max-width:calc(100% - 160px)}
 body.touch #photo-bar{bottom:calc(30px + var(--sb))}
 @media (max-width:460px){.pill b{display:none}.pill{padding:6px 12px 6px 6px}#topbar button{padding:8px}#topbar .lbl{display:none}}
+/* ---------- games ---------- */
+.gover{position:fixed;inset:0;z-index:8;display:grid;place-items:center;background:#4a3f6670;padding:14px}
+.gcard{max-height:100%;overflow:auto;width:min(440px,100%);background:#fffdfb;border:4px solid #fff;border-radius:26px;padding:14px 16px 16px;box-shadow:0 20px 50px #6a53a050;text-align:center}
+.ghead{display:flex;align-items:center;gap:8px}.ghead b{flex:1;text-align:left;font-size:17px}
+.gsub{border:2px solid #f3d5e2;background:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+.gscore{display:flex;align-items:center;justify-content:space-between;margin:12px 4px 6px;font-weight:800}.gscore i{font-style:normal;font-size:24px;color:#e0457b;margin:0 4px}.gscore small{color:var(--soft);font-weight:700}
+.garena{display:flex;align-items:center;justify-content:space-around;background:linear-gradient(135deg,#ffe3ef,#e4f6ea);border-radius:20px;padding:14px 6px}
+.garena em{display:block;font-style:normal;font-size:64px;line-height:1.1}.garena small{font-weight:800;color:var(--soft)}.garena b{font-size:20px;color:#c6a6f0}
+.garena.shake em{animation:gshake .26s ease-in-out}@keyframes gshake{50%{transform:translateY(-14px) rotate(-12deg)}}
+.gturn{margin:10px 0 2px;font-weight:900;color:#e0457b}.glog{margin:0 0 12px;font-size:14px;font-weight:700;color:var(--ink);min-height:20px}
+.ghands{display:flex;gap:10px}.ghands button{flex:1;border:3px solid #fff;border-radius:20px;background:linear-gradient(135deg,#fff2f7,#f1e9ff);padding:10px 0;font-weight:900;font-size:15px;box-shadow:0 6px 14px #6a53a026}
+.ghands button em{display:block;font-style:normal;font-size:40px}.ghands button:active{transform:scale(.94)}.ghands button:disabled{opacity:.5}
+.gcoupon img{width:100%;border-radius:14px;box-shadow:0 6px 16px #6a53a030;margin-bottom:10px}.gcoupon .go{margin-bottom:8px}
+.spwrap{width:min(1100px,100%);max-height:100%;overflow:auto;background:#fffdfb;border:4px solid #fff;border-radius:26px;padding:12px 14px;box-shadow:0 20px 50px #6a53a050}
+.spcount{font-weight:900;color:#e0457b;white-space:nowrap}
+.sppair{display:flex;gap:10px;margin-top:10px}.spimg{flex:1;min-width:0;text-align:center}.spimg canvas{width:100%;display:block;border-radius:12px;cursor:crosshair;touch-action:manipulation}
+.spimg small{font-weight:800;color:var(--soft)}
+@media (orientation:portrait){.sppair{flex-direction:column}.spimg canvas{max-height:36vh;width:auto;max-width:100%;margin:0 auto}}
+.spmsg{margin:10px 0 0;text-align:center;font-weight:800}.spmsg .go{margin-top:8px}
+.sphint{position:fixed;z-index:9;border:4px solid #ffd23f;border-radius:50%;pointer-events:none;animation:sphint 1.4s ease-out}@keyframes sphint{from{transform:scale(1.6);opacity:0}30%{opacity:1}to{opacity:0}}
+.spmiss{position:fixed;z-index:9;transform:translate(-50%,-50%);font-size:34px;font-weight:900;color:#ff4d6d;text-shadow:0 2px 6px #fff;pointer-events:none;animation:spmiss .6s ease-out forwards}@keyframes spmiss{to{opacity:0;transform:translate(-50%,-90%)}}
+#mjp-btn{background:linear-gradient(135deg,#ffd27a,#ff9cc0)}
 #flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
 #shot{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:#4a3f6688;padding:20px}
 .shotcard{background:#fff;border-radius:22px;padding:12px;max-width:min(420px,100%);box-shadow:0 20px 50px #0004}.shotcard img{display:block;width:100%;max-height:70vh;object-fit:contain;border-radius:12px}
@@ -192,6 +214,8 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
     <button data-spot="entry">🚪 입구</button>
     <button data-spot="display">🧸 진열대</button>
     <button data-spot="cafe">☕ 카페</button>
+    <button id="mjp-open">✊ 사장님과 묵찌빠</button>
+    <button id="spot-open">🔍 틀린그림찾기</button>
     <button id="look-toggle">👗 캐릭터 바꾸기</button>
     <button id="hint-toggle" class="only-pc">⌨️ 조작법</button>
   </div>
@@ -218,6 +242,7 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
   <button id="basket-btn" class="cta" hidden>🧺 장바구니 0</button>
   <button id="stop-btn" class="cta sub" hidden>쇼핑 그만두기</button>
   <button id="photo-btn" class="cta" hidden>📸 거울샷 찍기</button>
+  <button id="mjp-btn" class="cta" hidden>✊ 사장님과 묵찌빠</button>
 </div>
 <div id="order-chip" role="status" hidden></div>
 <div id="menu" class="sheet" role="dialog" aria-label="카페 메뉴" hidden></div>
@@ -225,6 +250,8 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
 <div id="diary" role="dialog" aria-label="다이어리" hidden></div>
 <div id="photo-bar" hidden></div>
 <div id="flash"></div>
+<div id="mjp" class="gover" role="dialog" aria-label="묵찌빠" hidden></div>
+<div id="spot" class="gover" role="dialog" aria-label="틀린그림찾기" hidden></div>
 <div id="shot" hidden></div>
 <div id="toast" role="status"></div>
 <div id="err" hidden></div>
