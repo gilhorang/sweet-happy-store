@@ -198,6 +198,10 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
 .spmiss{position:fixed;z-index:9;transform:translate(-50%,-50%);font-size:34px;font-weight:900;color:#ff4d6d;text-shadow:0 2px 6px #fff;pointer-events:none;animation:spmiss .6s ease-out forwards}@keyframes spmiss{to{opacity:0;transform:translate(-50%,-90%)}}
 .gtalk{margin:10px 2px 12px;text-align:left;font-weight:700;background:#fff2f7;border-radius:16px;padding:10px 12px}
 .gpick{display:flex;gap:10px}.gpick button{flex:1;border:3px solid #fff;border-radius:20px;background:linear-gradient(135deg,#fff2f7,#e8f6ee);padding:14px 8px;box-shadow:0 6px 14px #6a53a026;display:flex;flex-direction:column;align-items:center;gap:4px}
+#coin-pill{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,#fff6cf,#ffe6f0);color:#b5761a;font-weight:900;font-size:13.5px;white-space:nowrap}#coin-pill b{color:#c25a1c}#coin-pill.bump{animation:cbump .45s}@keyframes cbump{40%{transform:scale(1.18)}}
+@media (max-width:420px){#where{display:inline-block;max-width:92px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}#coin-pill{padding:4px 7px;font-size:11.5px;gap:1px}#topbar{gap:0}#topbar button{padding:7px 6px}}
+.coin-float{position:fixed;z-index:60;transform:translateX(-50%);font-weight:900;font-size:16px;pointer-events:none;text-shadow:0 1px 0 #fff,0 0 6px #fff;animation:cfloat 1.3s ease-out forwards}.coin-float.up{color:#e08a00}.coin-float.down{color:#e0457b}@keyframes cfloat{from{opacity:0;margin-top:-6px}15%{opacity:1}to{opacity:0;margin-top:34px}}
+.fee{font-style:normal;font-size:11px;font-weight:800;color:#c27a12;background:#fff6d6;border-radius:999px;padding:2px 8px;margin-left:4px}.gpick .fee{margin:2px 0 0;font-size:10px;line-height:1.3;text-align:center}.mcoin{font-weight:900;color:#d07a00;font-size:16px;margin:4px 0}
 .gpick em{font-style:normal;font-size:30px}.gpick b{font-size:15px}.gpick small{font-size:12px;color:var(--soft);font-weight:700}.gpick button:active{transform:scale(.96)}
 .gpick.many{flex-wrap:wrap}.gpick.many button{flex:1 1 45%;padding:10px 6px}.gpick.many em{font-size:26px}
 .mscore{margin:6px 0 0;text-align:center;font-size:34px;font-weight:900;color:#e0457b}.mprev{margin:2px 0 10px;text-align:center;font-weight:700;color:var(--soft)}
@@ -247,6 +251,7 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
 <div id="joy" aria-label="걷기 조이스틱"><div id="knob"></div></div>
 <div id="bubbles"></div>
 <div id="topbar">
+  <span id="coin-pill" title="수잇해피 코인 (게임 참가비·보상)">🪙 <b>3,000</b></span>
   <button id="view-toggle" title="시점 바꾸기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="lbl">1인칭</span></button>
   <button id="quality-toggle" title="화질"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 1.8 1.8.7-1.8.7L19 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg><span class="lbl">고화질</span></button>
 </div>
