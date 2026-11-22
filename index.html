@@ -24,7 +24,7 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-s
 .spots{pointer-events:auto;display:flex;flex-wrap:wrap;gap:6px}
 .spots button{border:2px solid #fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;box-shadow:0 4px 12px #6a53a01c}
 .spots [data-spot=entry]{background:#ffe1ee}.spots [data-spot=display]{background:#dcefff}.spots [data-spot=cafe]{background:#dff5e9}
-#map-toggle{background:#efe6ff}#view-toggle{background:#fff1d9}#quality-toggle{background:#e3f3ff}
+#map-toggle{background:#efe6ff}#view-toggle{background:#fff1d9}#quality-toggle{background:#e3f3ff}#sound-toggle{background:#ffe6f0}#sound-toggle .ico{font-size:15px;line-height:1}
 .spots button:active{transform:scale(.95)}
 #map{position:fixed;right:calc(14px + var(--sr));bottom:calc(14px + var(--sb));width:180px;height:166px;border-radius:20px;border:3px solid #fff;background:#fffafcea;box-shadow:0 8px 22px #6a53a026;pointer-events:none}
 #hint{position:fixed;left:calc(14px + var(--sl));bottom:calc(14px + var(--sb));margin:0;background:var(--card);border:2px solid #fff;padding:7px 12px;border-radius:12px;font-size:12.5px;color:var(--soft);box-shadow:0 4px 12px #6a53a01c}
@@ -252,6 +252,7 @@ body.touch #photo-bar{bottom:calc(30px + var(--sb))}
 <div id="bubbles"></div>
 <div id="topbar">
   <span id="coin-pill" title="수잇해피 코인 (게임 참가비·보상)">🪙 <b>3,000</b></span>
+  <button id="sound-toggle" title="소리 (배경음악·효과음)"><span class="ico" aria-hidden="true">🎵</span><span class="lbl">소리 켬</span></button>
   <button id="view-toggle" title="시점 바꾸기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="lbl">1인칭</span></button>
   <button id="quality-toggle" title="화질"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 1.8 1.8.7-1.8.7L19 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg><span class="lbl">고화질</span></button>
 </div>
