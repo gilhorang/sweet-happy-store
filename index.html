@@ -230,6 +230,21 @@ body.navfold #actions{bottom:calc(56px + var(--sb))}
 #dock #chat.open .ch-panel{transform:none;opacity:1;visibility:visible;transition:transform .32s cubic-bezier(.2,.9,.3,1.1),opacity .25s}
 #dock .ch-log{height:min(220px,calc(var(--vvh,100vh) - 270px));min-height:70px}
 #dock .ch-panel,#dock .ch-badge{display:none!important}
+/* 가챠 */
+.gacha .gstage{height:230px;display:grid;place-items:center;margin:10px 0 14px;background:linear-gradient(135deg,#fff2f7,#eef6ff);border-radius:20px;position:relative;overflow:hidden}
+.gmachine{position:relative;width:130px;height:190px}
+.gdome{position:absolute;left:10px;top:0;width:110px;height:110px;border-radius:50%;background:#ffffffb0;border:4px solid #fff;box-shadow:inset 0 -8px 18px #b9d8ff70,0 6px 14px #6a53a020;overflow:hidden}
+.gdome span{position:absolute;width:26px;height:26px;border-radius:50%;box-shadow:inset -4px -4px 0 #00000014,inset 3px 3px 0 #ffffff90}
+.gbody{position:absolute;left:18px;top:96px;width:94px;height:86px;border-radius:14px;background:linear-gradient(#ff9cc0,#f47fae);border:3px solid #fff}
+.gknob{position:absolute;left:30px;top:20px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 0 #e06a9a;transition:transform .2s}
+.gknob::after{content:"";position:absolute;left:12px;top:3px;width:6px;height:24px;border-radius:3px;background:#f47fae}
+.gmachine.roll .gknob{animation:gspin .5s linear 2}.gmachine.roll .gdome span{animation:gshake2 .18s ease-in-out infinite alternate}
+@keyframes gspin{to{transform:rotate(360deg)}}@keyframes gshake2{to{transform:translate(3px,-4px)}}
+.gcap{position:absolute;left:50px;top:150px;width:30px;height:30px;border-radius:50%;background:linear-gradient(var(--c) 50%,#fff 50%);border:2px solid #fff;box-shadow:0 3px 8px #6a53a040;opacity:0;animation:gdrop .5s ease-in .95s forwards}
+@keyframes gdrop{from{opacity:1;transform:translateY(-20px)}70%{opacity:1;transform:translateY(30px)}to{opacity:1;transform:translateY(24px) scale(1.15)}}
+.gprize{text-align:center;animation:gpop .45s cubic-bezier(.2,1.4,.4,1)}.gprize img{width:120px;height:120px;filter:drop-shadow(0 6px 12px #6a53a040)}.gprize p{margin:6px 0 2px;font-weight:800}.gprize small{color:var(--soft);font-weight:700}
+@keyframes gpop{from{transform:scale(.3);opacity:0}}
+.gacha .go:disabled{opacity:.55}
 #dock .ch-toggle{pointer-events:none}
 #coin-pill{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,#fff6cf,#ffe6f0);color:#b5761a;font-weight:900;font-size:13.5px;white-space:nowrap}#coin-pill b{color:#c25a1c}#coin-pill.bump{animation:cbump .45s}@keyframes cbump{40%{transform:scale(1.18)}}
 @media (max-width:420px){#where{display:inline-block;max-width:92px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}#coin-pill{padding:4px 7px;font-size:11.5px;gap:1px}#topbar{gap:0}#topbar button{padding:7px 6px}}
@@ -308,6 +323,7 @@ body.navfold #actions{bottom:calc(56px + var(--sb))}
   <button id="photo-btn" class="cta" hidden>📸 거울샷 찍기</button>
   <button id="mjp-btn" class="cta" hidden>🎮 사장님과 게임하기</button>
   <button id="cafegame-btn" class="cta" hidden>🎮 카페 알바 게임</button>
+  <button id="gacha-btn" class="cta" hidden>🎁 가챠 돌리기</button>
 </div>
 <div id="order-chip" role="status" hidden></div>
 <div id="menu" class="sheet" role="dialog" aria-label="카페 메뉴" hidden></div>
@@ -323,6 +339,7 @@ body.navfold #actions{bottom:calc(56px + var(--sb))}
 <div id="mjp" class="gover" role="dialog" aria-label="묵찌빠" hidden></div>
 <div id="spot" class="gover" role="dialog" aria-label="틀린그림찾기" hidden></div>
 <div id="shot" hidden></div>
+<div id="gacha" class="gover" role="dialog" aria-label="가챠" hidden></div>
 <div id="toast" role="status"></div>
 <div id="err" hidden></div>
 
